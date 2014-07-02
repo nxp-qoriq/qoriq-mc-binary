@@ -1,0 +1,151 @@
+/dts-v1/;
+/***************************************************************************
+Example Layout:
+Layout is built from 3 different sections: containers, objects, links.
+
+1. containers - all containers are represented as : dprc@<id>.
+	1.1 Container node contains:
+		1.1.1 icid pool - defined as follows:
+			name = icid_pool.
+			compatible = "icid-pool";
+			num = <int>; 		num of icid's in pool.
+			base_icid = <int>;	first icid in pool.
+		1.1.1 Properties required for its initialization: 
+			compatible = "fsl,dprc";
+			parent = "dprc@<id>"; or "none" if this is a root-level container
+			options =  "string";	one or more of the following options: 
+							"DPRC_CFG_OPT_SPAWN_ALLOWED", 
+							"DPRC_CFG_OPT_ALLOC_ALLOWED", 
+							"DPRC_CFG_OPT_OBJECT_CREATE_ALLOWED", 
+							"DPRC_CFG_OPT_TOPOLOGY_CHANGES_ALLOWED", 
+							"DPRC_CFG_OPT_IOMMU_BYPASS",
+							"DPRC_CFG_OPT_AIOP"
+			portal_id = <int>;
+		1.1.2 resources - all resources are defined as follows:
+			type = "string";	one of resource type defines;
+			num = <int>;		Number of resources;
+			options = <int>; 	Request options
+			id_base_align = <int>;  In case of explicit assignment, this field represents the required base ID for resource allocation;
+						In case of non-explicit assignment, this field indicates the required alignment for the resource ID(s) - use 0 or 1 if there is no alignment requirement.
+		1.1.3 objects - all objects' children are built as follows:
+			obj_name = "<obj>@<id>";
+			portal_id = <int>;
+2. objects - 	all objects' children are named: <obj>@<id> and contains all parameters required for initialization.
+3. links - 	all links' children are representing two objects linked to each other. 
+		each "link" defined as follows:
+			name = "link@<int>"
+			obj = "object@<id>/if@<id>" or "object@<id>";
+			peer = "object@<id>/if@<id>" or "object@<id>";		
+****************************************************************************/
+/ {	
+	containers {
+		icid_pool {
+			compatible = "icid-pool";
+			num = <100>;
+			base_icid = <0>;
+		};
+		dprc@1 {
+			compatible = "fsl,dprc";
+			parent = "none"; 
+			icid = <1>;
+			options = "DPRC_CFG_OPT_SPAWN_ALLOWED" , "DPRC_CFG_OPT_ALLOC_ALLOWED";
+			portal_id = <0>;
+			resources {
+				res@1 {
+					type = "mcp";
+					num = <1>;
+					options = <1>;
+					id_base_align = <15>;
+				};
+				res@2 {
+					type = "mcp";
+					num = <1>;
+					options = <1>;
+					id_base_align = <16>;
+				};
+			};
+			objects {
+				obj@1{
+					obj_name = "dpni@1";
+				};
+				obj@2{
+					obj_name = "dpbp@1";
+				};
+				obj@3{
+					obj_name = "dpio@1";
+				};
+				obj@4{
+					obj_name = "dpsw@1";
+				};
+				obj@5{
+					obj_name = "dpcon@1";
+				};
+				obj@6{
+					obj_name = "dpci@1";
+				};
+				obj@7{
+					obj_name = "dpseci@1";
+				};
+			};
+		};
+	};
+	objects {
+		dpio@1 {
+			compatible = "fsl,dpio";
+			channel_mode = "DPIO_LOCAL_CHANNEL";
+			num_priorities = <8>;
+		};
+		dpbp@1 {
+			compatible = "fsl,dpbp";
+		};
+		dpni@1{
+			compatible = "fsl,dpni";
+			type = "DPNI_TYPE_NIC";
+			mac_addr = <0 0 0 0 0 0>;				
+			max_senders = <0>;
+			options = <0>;
+			max_tcs = <0>;
+			max_dist_per_tc = <0 0 0>; 		
+			max_unicast_filters = <0>;
+			max_multicast_filters = <0>;
+			max_vlan_filters = <0>;
+			max_qos_entries = <0>;
+			max_qos_key_size = <0>;
+			max_dist_key_size = <0>;
+		};
+		dpsw@1{
+			compatible = "fsl,dpsw";
+			options = "DPSW_OPT_FLOODING_DIS", "DPSW_OPT_BROADCAST_DIS", "DPSW_OPT_MULTICAST_DIS", "DPSW_OPT_TC_DIS";
+			max_vlans = <1>;				
+			max_fdbs = <0>;
+			num_fdb_entries = <4>;
+			fdb_aging_time = <300>;
+			num_ifs = <2>;
+			max_fdb_mc_groups = <1>;
+		};
+		dpcon@1{
+			compatible = "fsl,dpcon";
+			num_priorities = <1>;
+		};
+		dpci@1{
+			compatible = "fsl,dpci";
+			aiop_ref_id = <1>;
+			priorities = <1 0>;
+		};
+		dpseci@1{
+			compatible = "fsl,dpseci";
+			sec_if_id = <0>;
+			priorities = <1 0>;
+		};
+	};
+	links {
+		link@1{
+			obj = "dpni@1";
+			peer = "dpmac@2";
+		};
+		link@2{
+			obj = "dpsw@1/if@1";
+			peer = "dpmac@3";
+		};
+	};
+};
