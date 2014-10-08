@@ -1,7 +1,7 @@
 /dts-v1/;
 /***************************************************************************
 Example Layout:
-Layout is built from 3 different sections: containers, objects, links.
+Layout is built from 3 different sections: containers, objects, connections.
 
 1. containers - all containers are represented as : dprc@<id>.
 	1.1 Container node contains:
@@ -31,11 +31,11 @@ Layout is built from 3 different sections: containers, objects, links.
 			obj_name = "<obj>@<id>";
 			portal_id = <int>;
 2. objects - 	all objects' children are named: <obj>@<id> and contains all parameters required for initialization.
-3. links - 	all links' children are representing two objects linked to each other. 
-		each "link" defined as follows:
-			name = "link@<int>"
-			obj = "object@<id>/if@<id>" or "object@<id>";
-			peer = "object@<id>/if@<id>" or "object@<id>";		
+3. connections - all 'connections' children are representing two objects connected to each other. 
+		each "connection" defined as follows:
+			name = "connection@<int>"
+			endpoint1 = "object@<id>/if@<id>" or "object@<id>";
+			endpoint2 = "object@<id>/if@<id>" or "object@<id>";		
 ****************************************************************************/
 / {	
 	containers {
@@ -86,6 +86,9 @@ Layout is built from 3 different sections: containers, objects, links.
 				obj@7{
 					obj_name = "dpseci@1";
 				};
+				obj@8{
+					obj_name = "dpdmux@1";
+				};
 			};
 		};
 	};
@@ -97,6 +100,7 @@ Layout is built from 3 different sections: containers, objects, links.
 		};
 		dpbp@1 {
 			compatible = "fsl,dpbp";
+			buffer_size = <512>;
 		};
 		dpni@1{
 			compatible = "fsl,dpni";
@@ -129,22 +133,32 @@ Layout is built from 3 different sections: containers, objects, links.
 		};
 		dpci@1{
 			compatible = "fsl,dpci";
-			num_of_priorities = <2>;
+			num_of_priorities = <1>;
 		};
 		dpseci@1{
 			compatible = "fsl,dpseci";
 			sec_if_id = <0>;
 			priorities = <1 0>;
 		};
-	};
-	links {
-		link@1{
-			obj = "dpni@1";
-			peer = "dpmac@2";
+		dpdmux@1{
+			compatible = "fsl,dpdmux";
+			dmat_method = "DPDMUX_METHOD_MAC";
+			manip = "DPDMUX_MANIP_NONE";
+			control_if = <0>;
+			num_ifs = <2>;
+			options = "DPDMUX_OPT_REPLICATION_DIS";
+			dmat_num_entries = <0>;
+			max_dmat_mc_groups = <0>;
 		};
-		link@2{
-			obj = "dpsw@1/if@1";
-			peer = "dpmac@3";
+	};
+	connections {
+		connection@1{
+			endpoint1 = "dpni@1";
+			endpoint2 = "dpmac@2";
+		};
+		connection@2{
+			endpoint1 = "dpsw@1/if@1";
+			endpoint2 = "dpmac@3";
 		};
 	};
 };
