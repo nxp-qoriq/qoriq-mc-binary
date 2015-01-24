@@ -5,13 +5,7 @@ Layout is built from 3 different sections: containers, objects, connections.
 
 1. containers - all containers are represented as : dprc@<id>.
 	1.1 Container node contains:
-		1.1.1 icid pool - defined as follows:
-			name = icid_pool.
-			compatible = "fsl,icid-pool";
-			num = <int>; 		num of icid's in pool.
-			base_icid = <int>;	first icid in pool.
 		1.1.1 Properties required for its initialization: 
-			compatible = "fsl,dprc";
 			parent = "dprc@<id>"; or "none" if this is a root-level container
 			options =  "string";	one or more of the following options: 
 							"DPRC_CFG_OPT_SPAWN_ALLOWED", 
@@ -39,13 +33,7 @@ Layout is built from 3 different sections: containers, objects, connections.
 ****************************************************************************/
 / {	
 	containers {
-		icid_pool {
-			compatible = "fsl,icid-pool";
-			num = <100>;
-			base_icid = <0>;
-		};
 		dprc@1 {
-			compatible = "fsl,dprc";
 			parent = "none"; 
 			icid = <1>;
 			options = "DPRC_CFG_OPT_SPAWN_ALLOWED" , "DPRC_CFG_OPT_ALLOC_ALLOWED";
@@ -89,31 +77,51 @@ Layout is built from 3 different sections: containers, objects, connections.
 				obj@8{
 					obj_name = "dpdmux@1";
 				};
+				obj@9{
+					obj_name = "dpmac@2";
+				};
+				obj@10{
+					obj_name = "dpmac@13";
+				};
+				obj@11{
+					obj_name = "dpmcp@12";
+				};
+				obj@12{
+					obj_name = "dpdmai@10";
+				};
+				obj@13{
+					obj_name = "dpdcei@1";
+				};
 			};
 		};
 	};
 	objects {
+		dpmcp@12 {
+		};
+		dpmac@2 {
+		};
+		dpmac@13 {
+		};
 		dpio@1 {
-			compatible = "fsl,dpio";
 			channel_mode = "DPIO_LOCAL_CHANNEL";
 			num_priorities = <8>;
 		};
 		dpbp@1 {
-			compatible = "fsl,dpbp";
 		};
 		dpni@1{
-			compatible = "fsl,dpni";
-			mac_addr = <0 0 1 0 0 1>;				
-			options = "DPNI_OPT_UNICAST_FILTER", "DPNI_OPT_MULTICAST_FILTER", "DPNI_OPT_VLAN_FILTER", "DPNI_OPT_DIST_HASH";
-			max_tcs = <4>;
-			max_dist_per_tc = <0 1 3 7>; /* actual distribution will be <1 2 4 8> */
-			max_unicast_filters = <8>;
-			max_multicast_filters = <5>;
-			max_vlan_filters = <4>;
-			max_qos_entries = <8>;
+			mac_addr = <0 0 0 0 0 0>;				
+			max_senders = <0>;
+			options = <0>;
+			max_tcs = <0>;
+			max_dist_per_tc = <0 0 0>; 		
+			max_unicast_filters = <0>;
+			max_multicast_filters = <0>;
+			max_vlan_filters = <0>;
+			max_qos_entries = <0>;
+			max_qos_key_size = <0>;
+			max_dist_key_size = <0>;
 		};
 		dpsw@1{
-			compatible = "fsl,dpsw";
 			options = "DPSW_OPT_FLOODING_DIS", "DPSW_OPT_BROADCAST_DIS", "DPSW_OPT_MULTICAST_DIS", "DPSW_OPT_TC_DIS";
 			max_vlans = <1>;				
 			max_fdbs = <0>;
@@ -123,28 +131,31 @@ Layout is built from 3 different sections: containers, objects, connections.
 			max_fdb_mc_groups = <1>;
 		};
 		dpcon@1{
-			compatible = "fsl,dpcon";
 			num_priorities = <1>;
 		};
 		dpci@1{
-			compatible = "fsl,dpci";
 			num_of_priorities = <1>;
 		};
 		dpseci@1{
-			compatible = "fsl,dpseci";
-			priorities = <1 0>;
+			sec_if_id = <0>;
+			priorities = < 2 5 >;
+		};
+		dpdmai@10 {
+			priorities = < 2 5 >;
+		};
+		dpdcei@1 {
+			engine = "DPDCEI_ENGINE_COMPRESSION";
+			tx_priority = <2>;
 		};
 		dpdmux@1{
-                                compatible = "fsl,dpdmux";
-                                options =  <0>;
-				method = "DPDMUX_METHOD_MAC";
-				manip = "DPDMUX_MANIP_NONE";                
-				control_if = <0>;
-				num_ifs = <3>;
-				max_dmat_entries = <8>;
-				max_mc_groups = <8>;
+			method = "DPDMUX_METHOD_MAC";
+			manip = "DPDMUX_MANIP_NONE";
+			control_if = <0>;
+			num_ifs = <2>;
+			options = "DPDMUX_OPT_REPLICATION_DIS";
+			max_dmat_entries = <0>;
+			max_mc_groups = <0>;
 		};
-
 	};
 	connections {
 		connection@1{
