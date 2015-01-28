@@ -1,0 +1,255 @@
+/dts-v1/;
+/***************************************************************************
+Example Layout:
+Layout is built from 3 different sections: containers, objects, connections.
+
+1. containers - all containers are represented as : dprc@<id>.
+	1.1 Container node contains:
+		1.1.1 icid pool - defined as follows:
+			name = icid_pool.
+			compatible = "fsl,icid-pool";
+			num = <int>; 		num of icid's in pool.
+			base_icid = <int>;	first icid in pool.
+		1.1.1 Properties required for its initialization: 
+			compatible = "fsl,dprc";
+			parent = "dprc@<id>"; or "none" if this is a root-level container
+			options =  "string";	one or more of the following options: 
+							"DPRC_CFG_OPT_SPAWN_ALLOWED", 
+							"DPRC_CFG_OPT_ALLOC_ALLOWED", 
+							"DPRC_CFG_OPT_OBJECT_CREATE_ALLOWED", 
+							"DPRC_CFG_OPT_TOPOLOGY_CHANGES_ALLOWED", 
+							"DPRC_CFG_OPT_IOMMU_BYPASS",
+							"DPRC_CFG_OPT_AIOP"
+			portal_id = <int>;
+		1.1.2 resources - all resources are defined as follows:
+			type = "string";	one of resource type defines;
+			num = <int>;		Number of resources;
+			options = <int>; 	Request options
+			id_base_align = <int>;  In case of explicit assignment, this field represents the required base ID for resource allocation;
+						In case of non-explicit assignment, this field indicates the required alignment for the resource ID(s) - use 0 or 1 if there is no alignment requirement.
+		1.1.3 objects - all objects' children are built as follows:
+			obj_name = "<obj>@<id>";
+			portal_id = <int>;
+2. objects - 	all objects' children are named: <obj>@<id> and contains all parameters required for initialization.
+3. connections - all 'connections' children are representing two objects connected to each other. 
+		each "connection" defined as follows:
+			name = "connection@<int>"
+			endpoint1 = "object@<id>/if@<id>" or "object@<id>";
+			endpoint2 = "object@<id>/if@<id>" or "object@<id>";		
+****************************************************************************/
+/ {
+	containers {
+		icid_pool {
+			compatible = "fsl,icid-pool";
+			num = <100>;
+			base_icid = <0>;
+		};
+		dprc@1 {
+			compatible = "fsl,dprc";
+			parent = "none";
+			options = "DPRC_CFG_OPT_SPAWN_ALLOWED" , "DPRC_CFG_OPT_ALLOC_ALLOWED";
+			portal_id = <0>;
+			resources {
+				res@1 {
+					type = "mcp";
+					num = <1>;
+					options = "DPRC_RES_REQ_OPT_EXPLICIT";
+					id_base_align = <15>;
+				};
+				res@2 {
+					type = "mcp";
+					num = <1>;
+					options = "DPRC_RES_REQ_OPT_EXPLICIT";
+					id_base_align = <16>;
+				};
+			};
+			objects {
+				obj@3{
+					obj_name = "dpio@1";
+				};
+				obj@4{
+					obj_name = "dpci@2";
+				};
+				obj@5{
+					obj_name = "dpci@5";
+				};
+				obj@6{
+					obj_name = "dpaiop@0";
+				};
+				obj@7{
+					obj_name = "dpmac@1";
+				};
+				obj@8{
+					obj_name = "dpmac@3";
+				};
+			};
+		};
+		dprc@2 {
+			compatible = "fsl,dprc";
+			parent = "dprc@1";
+			options = "DPRC_CFG_OPT_TOPOLOGY_CHANGES_ALLOWED" , "DPRC_CFG_OPT_IOMMU_BYPASS" , "DPRC_CFG_OPT_SPAWN_ALLOWED" , "DPRC_CFG_OPT_ALLOC_ALLOWED" , "DPRC_CFG_OPT_AIOP" , "DPRC_CFG_OPT_OBJ_CREATE_ALLOWED";
+			portal_id = <3>;
+			objects {
+				obj@1{
+					obj_name = "dpni@1";
+				};
+				obj@2{
+					obj_name = "dpbp@0";
+				};
+				obj@3{
+					obj_name = "dpni@2";
+				};
+				obj@4{
+					obj_name = "dpbp@1";
+				};
+				obj@5{
+					obj_name = "dpbp@2";
+				};
+				obj@6{
+					obj_name = "dpbp@3";
+				};
+				obj@7{
+					obj_name = "dpbp@4";
+				};
+				obj@8{
+					obj_name = "dpbp@5";
+				};
+				obj@9{
+					obj_name = "dpbp@6";
+				};
+				obj@10{
+					obj_name = "dpbp@7";
+				};
+				obj@11{
+					obj_name = "dpbp@8";
+				};
+				obj@12{
+					obj_name = "dpbp@9";
+				};
+				obj@13{
+					obj_name = "dpbp@10";
+				};
+				obj@14{
+					obj_name = "dpci@3";
+				};
+				obj@15{
+					obj_name = "dpci@0";
+				};
+			};
+		};
+	};
+	objects {
+		dpaiop@0 {
+			compatible = "fsl,dpaiop";
+			aiop_container_id = <2>;
+		};	
+		dpmac@1 {
+			compatible = "fsl,dpmac";
+		};
+		dpmac@3 {
+			compatible = "fsl,dpmac";
+		};
+		dpio@1 {
+			compatible = "fsl,dpio";
+			channel_mode = "DPIO_LOCAL_CHANNEL";
+			num_priorities = <8>;
+		};
+		dpbp@0 {
+			compatible = "fsl,dpbp";
+		};
+		dpbp@1 {
+			compatible = "fsl,dpbp";
+		};
+		dpbp@2 {
+			compatible = "fsl,dpbp";
+		};
+		dpbp@3 {
+			compatible = "fsl,dpbp";
+		};
+		dpbp@4 {
+			compatible = "fsl,dpbp";
+		};
+		dpbp@5 {
+			compatible = "fsl,dpbp";
+		};
+		dpbp@6 {
+			compatible = "fsl,dpbp";
+		};
+		dpbp@7 {
+			compatible = "fsl,dpbp";
+		};
+		dpbp@8 {
+			compatible = "fsl,dpbp";
+		};
+		dpbp@9 {
+			compatible = "fsl,dpbp";
+		};
+		dpbp@10 {
+			compatible = "fsl,dpbp";
+		};
+		dpni@1{
+			compatible = "fsl,dpni";
+			mac_addr = < 0x0 0x0 0x1 0x0 0x0 0x1 >; /*eth_ipv4_udp*/
+			/*mac_addr = < 0x2 0x0 0xc0 0x0a8 0xb 0xfe >;*/	/*ipfwd_b_2_64B_4Gb_t4*/
+			max_senders = <0>;
+			options = "DPNI_OPT_MULTICAST_FILTER" , "DPNI_OPT_UNICAST_FILTER" , "DPNI_OPT_DIST_HASH";
+			max_tcs = <0>;
+			max_dist_per_tc = < 0 0 0 0 0 0 0 0 >;
+			max_unicast_filters = <0>;
+			max_multicast_filters = <0>;
+			max_vlan_filters = <0>;
+			max_qos_entries = <0>;
+			max_qos_key_size = <0>;
+			max_dist_key_size = <0>;
+		};
+		dpni@2{
+			compatible = "fsl,dpni";
+			mac_addr = < 0x0 0x0 0x2 0x0 0x0 0x2 >; /*eth_ipv4_udp*/
+			/*mac_addr = < 0x2 0x0 0xc0 0x0a8 0xb 0xfe >;*/ /*ipfwd_b_2_64B_4Gb_t4*/
+			max_senders = <0>;
+			options = "DPNI_OPT_MULTICAST_FILTER" , "DPNI_OPT_UNICAST_FILTER" , "DPNI_OPT_DIST_HASH";
+			max_tcs = <0>;
+			max_dist_per_tc = < 0 0 0 0 0 0 0 0 >;
+			max_unicast_filters = <0>;
+			max_multicast_filters = <0>;
+			max_vlan_filters = <0>;
+			max_qos_entries = <0>;
+			max_qos_key_size = <0>;
+			max_dist_key_size = <0>;
+		};
+		dpci@0{
+			compatible = "fsl,dpci";
+			num_of_priorities = <2>;
+		};
+		dpci@2{
+			compatible = "fsl,dpci";
+			num_of_priorities = <2>;
+		};
+		dpci@3{
+			compatible = "fsl,dpci";
+			num_of_priorities = <2>;
+		};
+		dpci@5{
+			compatible = "fsl,dpci";
+			num_of_priorities = <2>;
+		};
+	};
+	connections {
+		connection@1 {
+			endpoint1 = "dpni@1";
+			endpoint2= "dpmac@1";
+		};
+		connection@2 {
+			endpoint1 = "dpni@2";
+			endpoint2= "dpmac@3";
+		};
+		connection@3 {
+			endpoint1 = "dpci@2";
+			endpoint2= "dpci@3";
+		};
+		connection@5 {
+			endpoint1 = "dpci@0";
+			endpoint2= "dpci@5";
+		};
+	};
+};

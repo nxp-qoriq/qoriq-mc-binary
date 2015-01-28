@@ -1,0 +1,30 @@
+/dts-v1/;
+/* DPC */
+/ {	
+	resources {
+		icid_pools {
+			icid_pool@1 {
+				num = <32>;
+				base_icid = <0>;
+			};
+		};
+	};
+	controllers {
+		qbman {
+			fbpr_size_kb = <0x2000>;
+			pfdr_size_kb = <0x800>;
+		};
+	};
+	board_info {
+		ports {
+			mac@1 {
+				link_type = "MAC_LINK_TYPE_FIXED";
+				phy_id  = <2>;
+			};
+			mac@3 {
+				link_type = "MAC_LINK_TYPE_FIXED";
+				phy_id  = <5>;
+			};
+		};
+	};
+};
