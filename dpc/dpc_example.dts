@@ -1,12 +1,6 @@
 /dts-v1/;
 /* DPC */
-/ {	
-	mc_general {
-		log {
-			mode = "LOG_MODE_ON";
-			level = "LOG_LEVEL_DEBUG";
-		};
-	};
+/ {
 	resources {
 		icid_pools {
 			icid_pool@1 {
@@ -14,22 +8,24 @@
 				base_icid = <0>;
 			};
 		};
-	};
-	controllers {
-		qbman {
-			fbpr_size_kb = <0x2000>;
-			pfdr_size_kb = <0x800>;
+	};	
+	mc_general {
+		log {
+			mode = "LOG_MODE_ON";
+			level = "LOG_LEVEL_INFO";
+		};
+		console {
+			mode = "CONSOLE_MODE_ON";
+			uart_id = <3>;
 		};
 	};
-	board_info {
-		ports {
-			mac@1 {
-				link_type = "MAC_LINK_TYPE_PHY";
-				phy_id  = <2>;
-			};
-			mac@3 {
-				link_type = "MAC_LINK_TYPE_NONE";
-			};
+	aiop {
+		log {
+			mode = "LOG_MODE_ON";
+		};
+		console {
+			mode = "CONSOLE_MODE_ON";
+			uart_id = <4>;
 		};
 	};
 };
