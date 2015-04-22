@@ -1,60 +1,23 @@
 /dts-v1/;
-/***************************************************************************
-Example Layout:
-Layout is built from 3 different sections: containers, objects, connections.
-
-1. containers - all containers are represented as : dprc@<id>.
-	1.1 Container node contains:
-		1.1.1 Properties required for its initialization: 
-			parent = "dprc@<id>"; or "none" if this is a root-level container
-			options =  "string";	one or more of the following options: 
-							"DPRC_CFG_OPT_SPAWN_ALLOWED", 
-							"DPRC_CFG_OPT_ALLOC_ALLOWED", 
-							"DPRC_CFG_OPT_OBJECT_CREATE_ALLOWED", 
-							"DPRC_CFG_OPT_TOPOLOGY_CHANGES_ALLOWED", 
-							"DPRC_CFG_OPT_IOMMU_BYPASS",
-							"DPRC_CFG_OPT_AIOP"
-			portal_id = <int>;
-		1.1.2 resources - all resources are defined as follows:
-			type = "string";	one of resource type defines;
-			num = <int>;		Number of resources;
-			options = <int>; 	Request options
-			id_base_align = <int>;  In case of explicit assignment, this field represents the required base ID for resource allocation;
-						In case of non-explicit assignment, this field indicates the required alignment for the resource ID(s) - use 0 or 1 if there is no alignment requirement.
-		1.1.3 objects - all objects' children are built as follows:
-			obj_name = "<obj>@<id>";
-			portal_id = <int>;
-2. objects - 	all objects' children are named: <obj>@<id> and contains all parameters required for initialization.
-3. connections - all 'connections' children are representing two objects connected to each other. 
-		each "connection" defined as follows:
-			name = "connection@<int>"
-			endpoint1 = "object@<id>/if@<id>" or "object@<id>";
-			endpoint2 = "object@<id>/if@<id>" or "object@<id>";		
-****************************************************************************/
 / {	
 	containers {
 		dprc@1 {
 			parent = "none"; 
 			icid = <1>;
-			options = "DPRC_CFG_OPT_SPAWN_ALLOWED" , "DPRC_CFG_OPT_ALLOC_ALLOWED";
+			options = "DPRC_CFG_OPT_SPAWN_ALLOWED" , "DPRC_CFG_OPT_ALLOC_ALLOWED", "DPRC_CFG_OPT_IRQ_CFG_ALLOWED";
 			portal_id = <0>;
 			resources {
 				res@1 {
 					type = "mcp";
-					num = <1>;
+					num = <2>;
 					options = "DPRC_RES_REQ_OPT_EXPLICIT";
 					id_base_align = <15>;
-				};
-				res@2 {
-					type = "mcp";
-					num = <1>;
-					options = "DPRC_RES_REQ_OPT_EXPLICIT";
-					id_base_align = <16>;
 				};
 			};
 			objects {
 				obj@1{
 					obj_name = "dpni@1";
+					label = "DPNI 1 label";
 				};
 				obj@2{
 					obj_name = "dpbp@1";
@@ -64,6 +27,7 @@ Layout is built from 3 different sections: containers, objects, connections.
 				};
 				obj@4{
 					obj_name = "dpsw@1";
+					label = "DPSW 1 label";
 				};
 				obj@5{
 					obj_name = "dpcon@1";
@@ -92,6 +56,9 @@ Layout is built from 3 different sections: containers, objects, connections.
 				obj@13{
 					obj_name = "dpdcei@1";
 				};
+				obj@16{
+					obj_name = "dpmac@10";
+				};
 			};
 		};
 	};
@@ -102,6 +69,8 @@ Layout is built from 3 different sections: containers, objects, connections.
 		};
 		dpmac@13 {
 		};
+		dpmac@10 {
+		};
 		dpio@1 {
 			channel_mode = "DPIO_LOCAL_CHANNEL";
 			num_priorities = <8>;
@@ -109,17 +78,17 @@ Layout is built from 3 different sections: containers, objects, connections.
 		dpbp@1 {
 		};
 		dpni@1{
-			mac_addr = <0 0 0 0 0 0>;				
-			max_senders = <0>;
-			options = <0>;
-			max_tcs = <0>;
-			max_dist_per_tc = <0 0 0>; 		
-			max_unicast_filters = <0>;
-			max_multicast_filters = <0>;
-			max_vlan_filters = <0>;
-			max_qos_entries = <0>;
-			max_qos_key_size = <0>;
-			max_dist_key_size = <0>;
+			mac_addr = < 0x0 0x0 0x1 0x0 0x0 0x1 >; 
+			max_senders = <3>; /* actually 4 */
+		    options = "DPNI_OPT_TX_CONF_DISABLED";
+			max_tcs = <3>; /* actually 4 */
+			max_dist_per_tc = <0 3 1 7>; /* actually <1 4 2 8> */	
+			max_unicast_filters = <4>;
+			max_multicast_filters = <12>;
+			max_vlan_filters = <7>;
+			max_qos_entries = <20>;
+			max_policers = <2>;
+			max_congestion_ctrl = <3>;
 		};
 		dpsw@1{
 			options = "DPSW_OPT_FLOODING_DIS", "DPSW_OPT_BROADCAST_DIS", "DPSW_OPT_MULTICAST_DIS", "DPSW_OPT_TC_DIS";
@@ -129,6 +98,7 @@ Layout is built from 3 different sections: containers, objects, connections.
 			fdb_aging_time = <300>;
 			num_ifs = <2>;
 			max_fdb_mc_groups = <1>;
+			max_meters_per_if = <2>;
 		};
 		dpcon@1{
 			num_priorities = <1>;
@@ -137,7 +107,6 @@ Layout is built from 3 different sections: containers, objects, connections.
 			num_of_priorities = <1>;
 		};
 		dpseci@1{
-			sec_if_id = <0>;
 			priorities = < 2 5 >;
 		};
 		dpdmai@10 {
@@ -145,7 +114,7 @@ Layout is built from 3 different sections: containers, objects, connections.
 		};
 		dpdcei@1 {
 			engine = "DPDCEI_ENGINE_COMPRESSION";
-			tx_priority = <2>;
+			priority = <2>;
 		};
 		dpdmux@1{
 			method = "DPDMUX_METHOD_MAC";
@@ -165,6 +134,10 @@ Layout is built from 3 different sections: containers, objects, connections.
 		connection@2{
 			endpoint1 = "dpsw@1/if@1";
 			endpoint2 = "dpmac@13";
+		};
+		connection@3{
+			endpoint1 = "dpdmux@1/if@0";
+			endpoint2 = "dpmac@10";
 		};
 	};
 };
