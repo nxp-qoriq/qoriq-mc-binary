@@ -124,3 +124,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ANNEX A
 BINARY SOFTWARE
 Only software in binary form may be provided under this Agreement
+
+Here is a list of software covered by this Agreement:
+MC binary firmware
