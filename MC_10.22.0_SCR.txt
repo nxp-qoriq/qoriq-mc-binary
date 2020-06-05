@@ -1,0 +1,18 @@
+NXP Software Content Register
+
+Outgoing License: NXP-Binary
+
+Release - MC 10.22.0
+June 2020
+
+--------------------------------------------
+
+Package:                   */mc_*_10.22.0.itb
+Outgoing License:          NXP-Binary
+License File:              NXP-Binary-EULA.txt
+Type of content:           Binary
+Description and comments:  MC firmware
+Release Location:          https://github.com/NXP/qoriq-mc-binary/tree/mc_release_10.22.0
+Origin:                    NXP (NXP-Binary)
+                           libfdt (BSD 2-Clause "Simplified") - https://github.com/dgibson/dtc/tree/main/libfdt
+                           libelf (BSD 2-Clause "Simplified") - https://github.com/spurious/elftoolchain-mirror/tree/master/libelf
