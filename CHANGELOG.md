@@ -1,8 +1,183 @@
-# Changelog
+﻿# Changelog
 **All notable changes to MC project from 10.2.2 version will be documented in this file.**
 
 ### Documentation
-### [DPAA2 User Manual](https://nxp.sdlproducts.com/LiveContent/media/en-US/LSDKUG_Rev19.06/GUID-D80B5D20-24AB-4687-AD41-85F71A4497CB_Public.pdf "DPAA2 User Manual")
+Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev20.04.pdf "LSDK User Guide")
+
+## [10.23.0] - 2020-08-14
+### Added
+- Support for external **ORL** records (configurable through DPC option)
+- Added support (through **DPC**) to convert **SGMII** ports in **XFI**
+- Removed internal **MDIO** accesses when **DPC** `link_type` is set to `MAC_LINK_TYPE_PHY`
+- Set optimized settings for all 25G lanes when creating **DPMAC** objects associated to these lanes
+- **DPSW**
+	* Interfaces are now added in replicator only on a linkup event to avoid internal resources depletion while the interface is down
+	* Automatic remove of **FDB** entries on interface disconnect
+	* Removed shaper for virtual links
+	* By default taildrop is disabled per interface
+	* Added API to configure taildrop per interface
+	* Added new create option `DPSW_OPT_LAG_DIS` to disable link aggregation
+- **DPNI**
+	* Added new create option `DPNI_OPT_SHARED_HASH_KEY` to use a shared hash key between all traffic classes as well as a new field `DIST_KEY_SIZE` to make distribution key size configurable by the user
+
+### Fixed
+- Updated **SGMII** configuration logic on all platforms. `pcs_autoneg` option can now be used to control auto negotiation on **SGMII** ports.
+- Increased virtual connections rate to that of the recycle port of the corresponding platform. This issue was causing the rate through recycle ports to be limited to 20G on LX2 platform
+- **DPMAC**: send link down interrupt on object disconnect
+- **DPSECI**: Fixed an issue triggered during dpseci_reset impacting applications using the DPSECI during subsequent runs
+- **DPDMUX**: Fixed an issue which was causing a crash in the firmware during creation of multiple **DPDMUX** instances with 4 or more interfaces
+- Fixed an issue on **LX2162** affecting **USXGMII** ports when Serdes protocol 3 is used
+
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.23.0?h=mc_release_10.23.0 "API")
+
+## [10.22.1] - 2020-06-30
+### Fixed
+- Fixed an issue which was affecting all networking interfaces on the LX2162 platform causing ethernet frames to not be sent nor received by the MAC
+
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.22.1?h=mc_release_10.22.1 "API")
+
+## [10.22.0] - 2020-06-05
+### Added
+- Support for **IEEE-1588** Single Step – new **DPNI API**
+- **WRIOP** dynamic resource allocation and dynamic **CEETM** instance selection: ports are now balanced on **CEETM** instances
+  based on their rate and **WRIOP** resources can be provisioned based on a new **DPC** option
+- Support for querying the **MAC** address of a **DPMAC** connected to a **DPSW** through a new **API** `dpsw_if_get_port_mac_address`
+- Support for **MAC** loopback configurable through **DPNI** – applicable only when the **DPNI** is connected to a **DPMAC**
+- Support for selectively resetting the **DPDMUX** through a new **API** `dpdmux_set_resetable`: default interface and unicast/multicast rules
+
+### Fixed
+- **DPSECI**: fixed `dpseci_reset` command, resolved an issue which was causing `dpseci_set_rxqueue` to fail and also addressed
+  a limitation with `dpseci_set_opr` **API** which was not allowing **OPR** on **DPSECI** queue while the object was enabled
+- **DPDMUX**: fixed an issue where the downlink ports did not link up after the uplink went from down to up state on **VEPA** mode
+- Fixed an issue on **LS1088** where the receiver lane reset was not performed when the **CDR** would not lock
+
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.22.0?h=mc_release_10.22.0 "API")
+
+## [10.21.0] - 2020-04-10
+### Added
+- Added new **DPMAC API** to configure inter packet gap
+- New option added in `dprc_reset_container` **API** to disable recursive reset (skip reset on child containers)
+
+### Fixed
+- Fixed flow steering when `DPNI_FLCTYPE_HASH` was enabled using `dpni_set_offload` **API**
+- Increased the number of **DPCON** objects that can be created
+
+### Changed
+- Changed behavior of **DPDMUX** and **DPSW** to allow errors to pass through rather than dropping them.
+  When **DPNIs** are connected to both objects, errors behavior can be controlled through `dpni_set_errors_behavior` **API**
+
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.21.0?h=mc_release_10.21.0 "API")
+
+## [10.20.4] - 2020-03-19
+### Fixed
+- Added taildrop support for **DPSW** to avoid internal buffer leakage within **L2Switch** when interfaces (physical-**DPMAC** or virtual-**DPNI**) are in down state
+- Fixed a series of defects which were affecting **DPDK IPSec** performance and were causing the **DPDK** application to hang
+
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.20.4?h=mc_release_10.20.4 "API")
+
+## [10.20.2] - 2020-02-27
+### Fixed
+- Fix for **WRIOP** resource allocation on LX2 devices – this issue was introduced in **MC 10.20.1** and was causing performance
+  degradation in various scenarios
+- Fix ports discovery on **Serdes1** protocol 0x39 on LS2 devices
+- Fix for `dpseci_reset`
+- Allow setting **OPR** using `dpseci_set_opr API` while **DPSECI** is enabled
+
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.20.2?h=mc_release_10.20.2 "API")
+
+## [10.20.1] - 2020-02-03
+### Added
+- **Added support for RGMII in enet_if field within DPC file**
+- **CAAM: initialize RNG with prediction resistance support**
+
+### Fixed
+- **LX2: Fix PCS RS-FEC initialization for 100G**
+
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.20.1?h=mc_release_10.20.1 "API")
+
+## [10.20.0] - 2019-12-20
+### Added
+- **Enhanced debug capabilities**
+	* Added **DPDBG** object and integrated it with restool
+	* A single **DPDBG** object can be created and can only be added in a root container
+	* `ls-debug` helper script was added to allow users to easily enable/disable the **MC** log and UART console, change the logging level, 
+	   the uart_id and commands timestamps, dump the **DPNI** information as well as the allocation of PEB and DDR memory within **MC**
+	* `ls-debug` script automatically creates a **DPDBG** object if one is not already created (either from **DPL** or using `restool`)
+- **LX2**
+	* Support for **FC-FEC**
+	* Export **FEC** mode in `dpmac_get_attributes`
+	* Increased number of **DPIO** objects that can be created to **65**
+- **DPNI**
+	* Send `DPNI_IRQ_EVENT_ENDPOINT_CHANGED` on all [dis]connect commands
+- **DPMAC**
+	* Added missing flags in the **APIs** header files: `DPMAC_IRQ_EVENT_LINK_UP_REQ`, `DPMAC_IRQ_EVENT_LINK_DOWN_REQ`
+- **DPRC**
+	* Added `dprc_set_locked` **API**
+		* This **API** can only be called for a child container; a container cannot call the **API** on itself nor can it call it on its grand children
+		* Lock signifies that the child container as well as the underneath containers hierarchy are not allowed to: 
+		**create/destroy** objects, **assign/unassign** objects or **lock/unlock** child containers
+	* `DPRC_OBJ_CREATE_ALLOWED` create option was removed; containers are now allowed to create objects by default and 
+		to restrict object creation one should call the new **API** `dprc_set_locked`
+- **DPDMUX**
+	* Added default interface field to the **DPDMUX** create command the purpose being to allow traffic to pass 
+		through the **DMUX** using a specified interface ID without the need to call `DPDMUX_IF_SET_DEFAULT`
+- **DPRTC**
+	* Added new **APIs**
+		* `dprtc_get_ext_trigger_timestamp`: returns the timestamp and verifies if there is a pending timestamp in the **FIFO**
+		* `dprtc_set_fiper_loopback`: loops the **FIPER** pulse back into the external trigger input
+	* Updated `dprtc_set_irq_mask`: added support to enable **ETS1/ETS2** and **PPS2** interrupts
+
+### Fixed
+- **DPNI**
+	* Updated `dpni_set_taildrop` **API** description
+	* Fix flow control clean-up upon **DPNI-DPNI** disconnect
+- **DPMAC**
+	* Fixed an issue which was causing the `*_LINK_DOWN_REQ` interrupt to not be sent
+- **DPRC**
+	* Destroy command now fails if one of the objects in the container is **plugged**
+- **DPMCP**
+	* Fixed a bug which was causing the **DPMCP** IDs to not be freed up when the container hosting that **DPMCP** object was destroyed
+- Fixed an issue which was causing internal resources to get leaked when connect fails; the issue was affecting **DPNI**, **DPSW** and **DPDMUX** objects
+
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.20.0?h=mc_release_10.20.0 "API")
+	
+## [10.19.0] - 2019-11-08
+### Added
+- **LX2**
+	* Support for **SFI** (on **XFI** ports) – configurable via **DPC**
+	* Configurable equalization settings – via **DPC**
+	* Personality support (SVRs) for **LX2160** rev2
+- **DPNI**
+	* Option to create **OPR** per frame queue – allows creation of more than 2 **DPNIs** with `DPNI_OPT_HAS_OPR` option set
+	* Increased maximum extract params to 20
+	* Allow the use of different Flow Steering key composition for each Traffic Class
+	* Updated the following **APIs** in **DPAA2UM**: `DPNI_CREATE`, `DPNI_SET_OPR`, `DPNI_GET_OPR`
+- **DPSW**
+	* Added `DPSW_CTRL_IF_SET_QUEUE` command for setting control interface queue destinations to **DPIO**
+- **DPSECI**
+	* Updated the following **APIs** in **DPAA2UM**: `DPSECI_SET_RX_QUEUE`, `DPSECI_SET_OPR`, `DPSECI_GET_OPR`
+- **DPDMUX**
+	* Updated the following **API** in **DPAA2UM**: `DPDMUX_ADD_CUSTOM_CLS_ENTRY`
+- Set **AMQ** parameters for **QBman** to allow it to work with **IOMMU** enabled
+- Added timestamping of every command in **MC** (log level INFO)
+- Dump **PEB** memory utilization in **MC** log on DEBUG level
+- Increased number of object connections (more objects can now be connected)
+
+### Fixed
+- **LX2**
+	* Fixed an issue where wrong equalization settings were applied to **USXGMII** interfaces in certain conditions
+- **DPNI**
+	* Fixed an issue where **PFC** frames were sent for all Traffic Classes and not just for the ones that were enabled
+- **DPSW**
+	* Fix for Pause Frames filtering
+	* Fixed an issue causing the **FLC** of incoming frames from control interface of the **DPSW** to be all zeroes
+- **DPSECI**
+	* Fixed an issue causing `DPSECI_SET_RX_QUEUE` **API** to fail
+- **DPDMUX**
+	* Fixed an issue due to which multiple classification entries could not be added when **DPDMUX** is created with `DPDMUX_OPT_CLS_MASK_SUPPORT` option
+- Disabled **MAC1** on **LS1044A** and **LS1048A** personalities
+	
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.19.0?h=mc_release_10.19.0 "API")
 
 ## [10.18.0] - 2019-08-30
 ### Added
