@@ -1,4 +1,4 @@
-Copyright © 2017 NXP. All rights reserved.
+Copyright © 2017-2020 NXP. All rights reserved.
 
 Software License Agreement (“Agreement”)
 
