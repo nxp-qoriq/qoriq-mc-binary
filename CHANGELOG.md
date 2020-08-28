@@ -4,6 +4,24 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev20.04.pdf "LSDK User Guide")
 
+## [10.24.0] - 2020-08-28
+### Added
+- **DPNI**
+	* Added new create option `DPNI_OPT_SHARED_FS` to use a single shared table for flow steering rather than one table for each traffic class.
+	When this option is set the HW resources utilization is optimized and this allows creation of more **DPNI** objects.
+	Also when this option is enabled TC_ID should be set to 0 in dpni_add_fs_entry().
+	* Added new command `dpni_dump_table` which allows users to dump the following types of tables: **VLAN, FS, MAC, QoS**.
+	* Added new option `DPNI_BUF_LAYOUT_OPT_NO_SG` to `dpni_set_buffer_layout` **API** to allow Scatter Gather enable/disable for RX buffers
+- **DPDMUX**
+	* Added new commands: `dpdmux_if_set_taildrop`, `dpdmux_if_get_taildrop` to allow configuration and query of taildrop per **DPDMUX** interface
+	* Added support for no buffer discard counter – can be set through `dpdmux_if_set_counter` and queried through `dpdmux_if_get_counter`
+
+### Fixed
+- **DPSW**
+	* Fixed ACL table bug that discarded frames with MAC address not present in FDB. Now addresses not present in FDB are distributed correctly using ACL.
+
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.24.0?h=mc_release_10.24.0 "API")
+
 ## [10.23.0] - 2020-08-14
 ### Added
 - Support for external **ORL** records (configurable through DPC option)
