@@ -4,6 +4,24 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev20.04.pdf "LSDK User Guide")
 
+## [10.25.0] - 2020-10-21
+### Added
+- Flow Control Support for DPSW
+- Flow Control Support for DPDMUX (VEB and VEPA)
+- Support to configure internal buffer size through `mem_size` **DPSW** and **DPDMUX** create parameter
+- **DPRTC** - added new API - `dprtc_get_clock_offset()`
+- **DPSW** - Support to dump tables from HW
+
+### Fixed
+- **DPNI** – fixed an issue where traffic was not steered to the correct destination for TC > 0 if `DPNI_OPT_SHARED_FS` was used
+- **DPSW** – fixed taildrop thresholds when `DPSW_TAILDROP_DROP_UNIT_BUFFERS` is used
+- **DPSW** – fixed counting of flooding interfaces as returned by `dpsw_vlan_get_if_flooding()`
+- **DPDMUX** – fixed an issue causing dpdmux_reset to return error when uplink port was not connected
+- **DPDMUX** – when using customer method allow adding identical <key, mask> pairs where keys and masks are distinct in different pairs
+- Optimized Qman error interrupt handling
+
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.25.0?h=mc_release_10.25.0 "API")
+
 ## [10.24.0] - 2020-08-28
 ### Added
 - **DPNI**
