@@ -4,6 +4,12 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.31.1] - 2022-01-20
+### Fixed
+- **DPMAC**
+	- Fixed 25G interfaces not working on LX2
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.31.0?h=mc_release_10.31.1 "API")
+
 ##[10.31.0] - 2021-12-17
 ### Added
 - **DPSW**
