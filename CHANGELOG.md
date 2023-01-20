@@ -2,7 +2,210 @@
 **All notable changes to MC project from 10.2.2 version will be documented in this file.**
 
 ### Documentation
-Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev20.04.pdf "LSDK User Guide")
+Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
+
+##[10.35.0] - 2022-08-05
+### Added
+- **DPDMUX**
+	- Add option to keep the default interface functional during reset
+	- Add support to load different soft parser profiles for
+	  different ports.
+- **DPSW**
+	- Improve DPSW LAG support:
+		- LAG configuration can be done dynamically through the
+		  MC API multiple times.
+		- Automatic reconfiguration of LAG group is done on
+		  linkup / linkdown events
+	- Add support to load different soft parser profiles for
+	  different ports.
+- **DPSECI**
+	- Add debug capabilities for DPSECI queues through the new
+	  following MC API functions: dpseci_get_rx_queue_status and
+	  dpseci_get_tx_queue_status
+- **DPC**
+	- Add DPC option to enable CAAM coherency mode
+### Fixed
+- **DPMAC**
+	- Free WRIOP resources at DPMAC destruction
+- **DPDMUX**
+	- Fix dpdmux_create in case of lack of resources. Previously
+	  the dpdmux_create() API would not fail cleanly.
+
+##[10.34.0] - 2022-07-22
+### Added
+- **DPNI**
+	- Add support to enable/disable Tx confirmation per queue
+### Fixed
+- **DPBP**
+	- Fix default depletion thresholds for LX2160A and variants in
+	  order to achieve a lossless 10G link.
+
+##[10.33.0] - 2022-05-18
+### Added
+- **DPNI**
+	- Add support to enable/disable soft parser per individual interface basis
+- **ALL**
+	- Add missing files in MC flib and flib refactoring with several improvements
+### Fixed
+- **DPSW**
+	- Fix IRQs to reach the dpsw object when not all interrupts are treated
+- **CTLU**
+	- Fix extract from parse result when offset is greater than 32
+- **DPBP**
+	- Hardware Depletion Threshold (HWDET) in buffer pool can be configured by the user
+- **WRIOP**
+	- Fix WRIOP ports that may not work as expected if their total bandwidth is more than 100Gbps: 
+	added DPC option to configure smaller bandwidth for recycle ports; 
+	this will free hardware resources to be available for physical ports
+- **ALL**
+	- Fix MC stop responding after MC fails to authorize resources
+	- Fix mcmemsize value that affects MC firmware behavior on customer board
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.33.0?h=mc_release_10.33.0 "API")
+
+##[10.32.0] - 2022-02-28
+### Added
+- **DPMCP**
+	- Add support to optionally disable high priority commands on DPMCP portal
+- **DPMAC**
+	- Add support for changing the MAC protocol
+- **DPNI**
+	- Update dpni_get_single_step_cfg command with a new attribute to return the offset of PTP single step register
+### Fixed
+- **DPMAC**
+	- Fix program exception when dpmacs are created and destroyed in a continuous loop
+- **DPNI**
+	- Fix dpni rx-fq frame data/annotation stashing that is off by default
+	- Fix dpni_set_opr that does not check the range for opr_id
+	- Fix error messages on dpni reset
+- **DPSW**
+	- Fix dpsw reset procedure that does not set default values for all internal dpsw variables
+	- Fix dpsw number of VLANS per interface which is limited to 32 without an obvious reason
+- **DPSECI**
+	- Fix dpseci that does not enable OPR
+- **DPDMUX**
+	- MC internal refactoring without any API changes related to unused dpdmux interface structure members
+- **User Manual**
+	- Add new chapter about objects isolation as an important notice
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.32.0?h=mc_release_10.32.0 "API")
+
+##[10.31.1] - 2022-01-20
+### Fixed
+- **DPMAC**
+	- Fixed 25G interfaces not working on LX2
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.31.0?h=mc_release_10.31.1 "API")
+
+##[10.31.0] - 2021-12-17
+### Added
+- **DPSW**
+	- New dpsw command: DPSW_CMD_CODE_IF_SET_TX_SHAPING. 
+	By default, DPSW ports are not configured as shaped. Call DPSW_CMD_CODE_IF_SET_TX_SHAPING if shaping is needed
+- **DPMAC**
+	- Updated CEMAC graceful stop procedure
+### Fixed
+- **DPNI**
+	- Add support to query DPNI option that locates PFDR in PEB memory
+	- Changed the condition that authorizes the target DPNI's token when dpni_add_fs_entry uses DPNI_FS_OPT_REDIRECT_TO_DPNI_RX or DPNI_FS_OPT_REDIRECT_TO_DPNI_TX options
+	- Check for 'DPNI_FS_OPT_SET_FLC' option if 'DPNI_FS_OPT_REDIRECT_TO_DPNI_TX' is set for a fs_entry action and use it
+	- When 'DPNI_OPT_NO_MAC_FILTER' option is used at dpni creation, do not create MAC table
+	- Fixed version for command: DPNI_CMDID_SET_OPR
+- **DPMAC**
+	- Fixed internal inconsistency regarding variable types in serdes code
+- **DPSW**
+	- Fixed IPV6 traffic drop on ingress side by the DPSW
+- **DPMNG**
+	- Fixed maximum bandwidth available for recycle port on each platform
+- **DPRTC**
+	- Restrict the creation of multiple dprtc objects to a single object only
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.31.0?h=mc_release_10.31.0 "API")
+
+##[10.30.0] - 2021-11-3
+### Added
+- **DPNI** - Allow queue configuration before enabling FS/HASH distribution
+- **DPNI** - Add possibility to configure frame payload and frame header stashing
+- **DPNI** - Export num_opr field in dpni_get_attributes API
+- **DPMAC** - When MAC is configured as FIXED_LINK MC reports link up only if PCS status register reports link and local fault registers are cleared.
+- **DPSW** - Added new API to set priority selector: dpsw_if_set_prio_selector()
+- **DPRC** - Added new API function that returns the available PEB memory, including the available ranges
+- **DPDBG** - DPDBG output printed in log is no more limited to 1204 bytes.
+### Fixed
+- **DPNI** - Fixed congestion notification for Tx confirmation queues
+- **DPNI** - Fixed DPNI-DPMAC disconnect procedure when DPMAC is destroyed when connected
+- **DPNI** - Fixed usage of DPNI_MAC_SET_QUEUE_ACTION and DPNI_VLAN_SET_QUEUE_ACTION flags that may cause frames to be received in the wrong queue
+- **DPNI** - Fixed hash distribution used with QoS enabled
+- **DPNI** - Fixed cases when OPR_OPT_ASSIGN option used in dpni_set_opr returns error code when operation completed successfully
+- **DPNI** - Fixed an issue which resulted in DPNI_OPT_CUSTOM_OPR not being returned in the dpni_get_attributes() response
+- **DPSW** - Fix warning prints on dpsw_fdb_dump
+- **DPDMUX** - Fix 1588 support for LX216x / LS2088 / LS1088: timestamp received by DPNI is provided by DPMAC object connected to uplink port.
+
+##[10.29.1] - 2021-08-31
+### Added
+- **DPNI** - Increase number of queue supported by dpni object (16 queues on LS2085, LS1088 and LS2088, 32 queues on LX2160)
+### Fixed
+- **DPNI** - Fix disconnect procedure for dpni-dpmac connection when dpmac link is not up
+- **DPNI** - Fix receiving queue after QOS configuration and reset
+- **DPSW** - Fix flooding / broadcast configuration from dpl file
+- **QBMAN** - Display PFDR low threshold error only once. The low PFDR interrupt is disabled after first occurrence to avoid MC flooding with this message.
+- **DPDMAI** - Fixed leak for 'congestion group' resource
+- **DPDMAI** - Fixed internal deauthorization for 'congestion group' resource
+
+## [10.29.0] - 2021-07-07
+### Added
+- **DPNI** - Multiple transmit channels. Each channel has its own set of traffic classes.
+- **DPSPARSER** - Support for multiple soft parser profiles. Each DPNI can support individual profile.
+- **DPRC** - Increase number of virtual connections by 3
+- **DPDMUX** - Three new parameters added in dpdmux_get_attributes(): max_dmat_entries, max_mc_groups, max_vlan_ids
+- **DPC** - new parameter added: debug_link_check. When set to off and MAC link type is FIXED the innternal checks will always return UP (used for debug purpose)
+- On LS1088 platform the binary size exceeded 1M bytes. Boot and flashing scripts may need update if they assume a maximum size of 1M bytes for MC image.
+### Fixed
+- **DPDMUX** - Enable zero taildrop for downlink interfaces when link is down to avoid frame accumulation on disabled dpni objects
+- **QBMAN** - Internal virtual ID generation may overflow
+- **QBMAN** - Update memory size calculation for WQPR structure
+- **DPNI** - Display correct module name in log messages
+- **DPNI** - Do not allow dpni connections when interface id parameter is other than zero
+- **DPRC** - Removed DPRC_OBJ_FLAG_NO_MEM_SHAREABILITY from header files, the flag is never used in MC.
+- **DPRC** - Fix resource deallocation when errors appear during connect procedure for **DPNI**, **DPDMUX**, **DPMAC**
+
+## [10.28.1] - 2021-04-27
+### Fixed
+- **DPNI** - Reject enqueue to invalid QPRI – the enqueues using invalid QPRI value will be put into confirmation queue.
+- **DPSW** - Parse component_type property from DPL.
+- **DPSW** - STP BPDU frames that reach control interface will have ingress port QDID updated in FLC.
+- **DPSW** - Return error when dpsw_if_set_stp() is called with an invalid state.
+- **DPDMUX** - DPNI connections will display link speed available for DPDMUC-DPDMAC connection.
+- **DPDMUX** - Update max frame length value for all interfaces.
+- **DPMAC** - o	added support for 25GBase-KR.
+- Portal busy check for portals 32-63, 96-127, 160-191, 224-255.
+- Use firmware instead of firmware@1 when creating itb image (needed by the latest uboot images).
+
+## [10.28.0] - 2021-03-04
+### Added
+- **DPNI** - allow FS table to redirect frames to another dpni object
+- **DPSW** - add necessary ABI to allow partitioning  (multiple bridging domains per DPSW object)
+
+### Fixed
+- Fix register offsets used to check if various modules are enabled / disabled at MC boot
+- Fix rule modification in TCAM tables when rule is larger than one TCAM entry
+- **DPNI** - Fix STP configuration
+
+## [10.27.0] - 2021-01-28
+### Added
+- **DPDMUX** - Allow user to configure what types of errors are filtered by discarded or accepted interface
+- **DPDMUX** - DPNI automatically update maximum frame size for dpdmux interfaces
+
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.27.0?h=mc_release_10.27.0 "API")
+
+## [10.26.0] - 2020-12-21
+### Added
+- Support for Parse Profile MPLS HXS Config
+- `_ENDPOINT_CHANGED` interrupt to DPDMUX, DPSW and DPMAC objects
+- **DPDMAI** - Support for congestion notification
+
+### Fixed
+- **DPNI** – Fixed an issue affecting `dpni_dump_table` when adding entries in descending order in TCAM table
+- **DPNI** – Fixed an issue where only 256 Flow Steering entries could be created although the maximum number provided at create was 512
+- **DPSW** – Fixed an issue where QMan recoverable errors were thrown in MC log while calling `dpsw_vlan_remove_if` API under traffic
+
+#### [API](https://source.codeaurora.org/external/qoriq/qoriq-components/mc-utils/tree/api/mc_release_10.26.0?h=mc_release_10.26.0 "API")
 
 ## [10.25.0] - 2020-10-21
 ### Added
