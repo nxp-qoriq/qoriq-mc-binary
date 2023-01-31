@@ -4,6 +4,41 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.36.0] - 2023-01-31
+### Added
+- **DPDMUX**
+	- DPDMUX interfaces are now added into the relevant replicators
+	  only on a linkup event to avoid internal resource depletion
+	  while the interface is down.
+	- Added support for setting a default interface for methods MAC,
+	  C_VLAN and C_VLAN_MAC. In case a frame does not match any rule
+	  added to the DPDMUX it will get sent to the default downlink
+	  interface.
+- **SERDES**
+	- Enabled usage of SerDes2 protocols 6,7 and 8 for LX2162A.
+- **GENERAL**
+	- Added debug prints of relevant registers in case an ECC error on
+	  the PEB memory is encountered.
+
+### Fixed
+- **SERDES**
+	- Fixed broken computation of the PCCC SerDes register which
+	  rendered the USXGMII protocol on the SerDes2 to not be
+	  enabled.
+- **DPSW**
+	- Any DPNI connected to a DPSW port will now receive the
+	  timestamp information directly from the DPMAC object that
+	  originated it. Previous to this release, the timestamp was
+	  taken in the DPDMUX object which meant that the 1588 path
+	  delay was not stable because it used to include the DPSW
+	  forwarding latency.
+- **DPSW,DPDMUX**
+	- Added validation on the parameters passed to the
+	  _set_error_behavior() APIs. Mainly, the _ERROR_DISC bit is
+	  accepted only of the action is to redirect to error queue.
+	  All the errors that need to be ignored have to be directly
+	  listed when the API is called.
+
 ##[10.35.0] - 2022-08-05
 ### Added
 - **DPDMUX**
