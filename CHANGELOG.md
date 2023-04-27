@@ -4,6 +4,29 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.37.0] - 2023-04-28
+### Added
+- **DPMAC**
+	- Added support for dynamic MAC reconfiguration between 10G and
+	  25G speeds. Now the dpmac_set_protocol() also accepts
+	  DPMAC_ETH_IF_CAUI as a parameter.
+- **DPDMUX**
+	- Imposed the connection restrictions of a DPDMUX. For example,
+	  a DPDMUX uplink was only supposed to be connected to a DPMAC
+	  object but this kind of restriction was not imposed until now.
+
+### Fixed
+- **DPDMUX**
+	- Fixed a coverity issue which only showed in debug mode.
+	  Mainly, the print of the keys used in adding DPDMUX rules was
+	  not taking into consideration the length of the key.
+- **DPRTC**
+	- In case the instantiation of a DPRTC fails, no other objects
+	  are impacted.
+- **DPDMUX**
+	- Made some cosmetic changes in the DPDMUX code to improve
+	  readability.
+
 ##[10.36.0] - 2023-01-31
 ### Added
 - **DPDMUX**
