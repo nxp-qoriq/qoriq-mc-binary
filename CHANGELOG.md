@@ -4,6 +4,28 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.38.0] - 2023-08-18
+### Added
+- **DPSW**
+	- Add support for control interface (ctrl_if) traffic when ports
+	  are under a LAG group. Frames reaching the ctrl_if through an
+	  ACL trap will have a precise RX interface ID in the associated
+	  FLC. On the other hand, frames reaching the ctrl_if from a LAG
+	  through any other mechanism will only have the interface ID of
+	  the LAG master port reported in the FLC.
+	- Allow LAG master port to be removed from an existing group.
+	  The group will be reconfigured to choose a new master port
+	  (the first port of those remaining).
+	- Add the dpsw_if_set_lag_state() API through which users are
+	  able to change the tx_enabled state of a switch port which is
+	  part of a LAG group.
+
+### Fixed
+- **DPDMUX**
+	- Fix an issue which made MC unresponsive when the
+	  dpdmux_create() API was called using an unsupported
+	  configuration.
+
 ##[10.37.0] - 2023-04-28
 ### Added
 - **DPMAC**
