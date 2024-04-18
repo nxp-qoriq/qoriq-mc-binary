@@ -4,6 +4,28 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.38.1] - 2024-04-19
+
+### Fixed
+- **DPDMUX**
+	- Do not reset uplink interface in case of
+	  DPDMUX_SKIP_RESET_DEFAULT_INTERFACE. This fixes the usecase in
+	  which closing a DPDK application running on a non-default
+	  interface of the DPDMUX does not impact (no link flap) the
+	  default interface.
+- **DPDMAI**
+	- Process the 'num_queues' and 'options' fields from the DPL.
+	Without this fix, the requested parameters requested through the
+	DPDMAI node would not be actually taken into consideration.
+- **GENERAL**
+	- Removed the unit address from the hash node of the its used to
+	  generate the MC firmware itb file.
+	- Add the DPC 'follow_hw_pssr' option in order to read the PSSR
+	  register from HW, instead of relying on a hardcoded value
+	  based on the RCW protocol configured. This fixes the usecase
+	  in which the SerDes lanes are reconfigured through PBI
+	  commands and the MC firmware needs to follow its lead.
+
 ##[10.38.0] - 2023-08-18
 ### Added
 - **DPSW**
