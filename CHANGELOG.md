@@ -4,36 +4,47 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.38.501] - 2024-06-07
+### Added
+- **DPMAC**
+	- Added a new command - dpmac_get_statistics() - which can be
+	  used to retrieve all MAC related counters in a single API
+	  call.
+- **DPNI**
+	- Added a new command - dpni_get_mac_statistics() - which
+	  similarly to dpmac_get_statistics() can be used to get all MAC
+	  related counters in a single firmware call.
+
 ##[10.38.500] - 2024-06-03
 ### Added
 - **DPNI**
-        - Added support for configuration of the MACSec block through the
-          DPNI object. This will enable users to offload MACSec
-          operations to the connected DPMAC object by issuing commands
-          using the DPNI - Network Interface object. The following
-          commands were added:
-                - DPNI_IS_MACSEC_CAPABLE
-                - DPNI_ADD_SECY
-                - DPNI_REMOVE_SECY
-                - DPNI_SECY_SET_STATE
-                - DPNI_SECY_SET_PROTECT
-                - DPNI_SECY_SET_REPLAY_PROTECT
-                - DPNI_SECY_ADD_TX_SA
-                - DPNI_SECY_REMOVE_TX_SA
-                - DPNI_SECY_SET_ACTIVE_TX_SA
-                - DPNI_SECY_ADD_RX_SC
-                - DPNI_SECY_REMOVE_RX_SC
-                - DPNI_SECY_SET_RX_SC_STATE
-                - DPNI_SECY_ADD_RX_SA
-                - DPNI_SECY_REMOVE_RX_SA
-                - DPNI_SECY_SET_RX_SA_NEXT_PN
-                - DPNI_SECY_SET_RX_SA_STATE
-                - DPNI_SECY_GET_STATS
-                - DPNI_SECY_GET_TX_SC_STATS
-                - DPNI_SECY_GET_TX_SA_STATS
-                - DPNI_SECY_GET_RX_SC_STATS
-                - DPNI_SECY_GET_RX_SA_STATS
-                - DPNI_GET_MACSEC_STATS
+	- Added support for configuration of the MACSec block through the
+	  DPNI object. This will enable users to offload MACSec
+	  operations to the connected DPMAC object by issuing commands
+	  using the DPNI - Network Interface object. The following
+	  commands were added:
+		- DPNI_IS_MACSEC_CAPABLE
+		- DPNI_ADD_SECY
+		- DPNI_REMOVE_SECY
+		- DPNI_SECY_SET_STATE
+		- DPNI_SECY_SET_PROTECT
+		- DPNI_SECY_SET_REPLAY_PROTECT
+		- DPNI_SECY_ADD_TX_SA
+		- DPNI_SECY_REMOVE_TX_SA
+		- DPNI_SECY_SET_ACTIVE_TX_SA
+		- DPNI_SECY_ADD_RX_SC
+		- DPNI_SECY_REMOVE_RX_SC
+		- DPNI_SECY_SET_RX_SC_STATE
+		- DPNI_SECY_ADD_RX_SA
+		- DPNI_SECY_REMOVE_RX_SA
+		- DPNI_SECY_SET_RX_SA_NEXT_PN
+		- DPNI_SECY_SET_RX_SA_STATE
+		- DPNI_SECY_GET_STATS
+		- DPNI_SECY_GET_TX_SC_STATS
+		- DPNI_SECY_GET_TX_SA_STATS
+		- DPNI_SECY_GET_RX_SC_STATS
+		- DPNI_SECY_GET_RX_SA_STATS
+		- DPNI_GET_MACSEC_STATS
 
 ##[10.38.1] - 2024-04-19
 

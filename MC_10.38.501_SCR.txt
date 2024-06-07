@@ -2,7 +2,7 @@ NXP Software Content Register
 
 Outgoing License: NXP-Binary
 
-Release - MC 10.38.500
+Release - MC 10.38.501
 Jun 2024
 
 --------------------------------------------
@@ -12,7 +12,7 @@ Outgoing License:          NXP-Binary
 License File:              LICENSE
 Type of content:           Binary
 Description and comments:  MC firmware
-Release Location:          https://github.com/nxp-qoriq/qoriq-mc-binary.git -b mc_release_10.38.500
+Release Location:          https://github.com/nxp-qoriq/qoriq-mc-binary.git -b mc_release_10.38.501
 Origin:                    NXP (NXP-Binary)
                            libfdt (BSD 2-Clause "Simplified") - https://github.com/dgibson/dtc/tree/v1.4.0/libfdt
                            libelf (BSD 2-Clause "Simplified") - https://github.com/spurious/elftoolchain-mirror/tree/17c7fea7e9cacbaed633c3d30f62af1c574b1dbc/libelf
