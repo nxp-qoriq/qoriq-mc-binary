@@ -4,6 +4,58 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.39.0] - 2024-07-30
+
+### Added
+- **DPMAC**
+       - Added a new command - dpmac_get_statistics() - which can be
+         used to retrieve all MAC related counters in a single API
+         call.
+- **DPNI**
+       - Added support for configuration of the MACSec block through the
+         DPNI object. This will enable users to offload MACSec
+         operations to the connected DPMAC object by issuing commands
+         using the DPNI - Network Interface object. The following
+         commands were added:
+               - DPNI_IS_MACSEC_CAPABLE
+               - DPNI_ADD_SECY
+               - DPNI_REMOVE_SECY
+               - DPNI_SECY_SET_STATE
+               - DPNI_SECY_SET_PROTECT
+               - DPNI_SECY_SET_REPLAY_PROTECT
+               - DPNI_SECY_ADD_TX_SA
+               - DPNI_SECY_REMOVE_TX_SA
+               - DPNI_SECY_SET_ACTIVE_TX_SA
+               - DPNI_SECY_ADD_RX_SC
+               - DPNI_SECY_REMOVE_RX_SC
+               - DPNI_SECY_SET_RX_SC_STATE
+               - DPNI_SECY_ADD_RX_SA
+               - DPNI_SECY_REMOVE_RX_SA
+               - DPNI_SECY_SET_RX_SA_NEXT_PN
+               - DPNI_SECY_SET_RX_SA_STATE
+               - DPNI_SECY_GET_STATS
+               - DPNI_SECY_GET_TX_SC_STATS
+               - DPNI_SECY_GET_TX_SA_STATS
+               - DPNI_SECY_GET_RX_SC_STATS
+               - DPNI_SECY_GET_RX_SA_STATS
+               - DPNI_GET_MACSEC_STATS
+       - Added a new command - dpni_get_mac_statistics() - which
+         similarly to dpmac_get_statistics() can be used to get all MAC
+         related counters in a single firmware call.
+- **GENERAL**
+        - Added a hint for the case in which the port FIFO size register
+          was not properly configured due to insufficient FIFO for all
+          physical ports and the two recycle ports configured by default
+          to sustain 50Gbps.
+### Fixed
+- **DPNI**
+        - The dpni_set_tx_priorities() command behaves different when
+          the num_tx_tcs value on the DPNI is greater than 8 and the
+          only accepted configuration is:
+                - TCs [0-8) as STRICT priority (implicit)
+                - TCs [8-12) as WEIGHTED_A (must be set in SCH_MODE_0 to SCH_MODE_3)
+                - TCs [12-16) as WEIGHTED_B (must be set in SCH_MODE_4 to SCH_MODE_7)
+
 ##[10.38.1] - 2024-04-19
 
 ### Fixed
