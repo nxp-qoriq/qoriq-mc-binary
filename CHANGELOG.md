@@ -4,6 +4,18 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.39.100] - 2024-10-02
+
+### Added
+- **DPC**
+	- Add the 'minimal_fifo' configuration param per recycle_port.
+	  This can be used to configure the minimal amount of FIFO on a
+	  recycle port, rendering it unusable.
+### Fixed
+- **DPNI**
+	- Fix dpni_get_mac_statistics() when run on a DPNI from a
+	  different DPRC than the DPMAC.
+
 ##[10.39.0] - 2024-07-30
 
 ### Added
