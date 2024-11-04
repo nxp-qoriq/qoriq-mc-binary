@@ -4,6 +4,14 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.39.200] - 2024-11-04
+### Fixed
+- **DPDMUX**
+	- Fixed behavior when default interface is not yet up when
+	  DPDMUX method is DPDMUX_METHOD_CUSTOM by adding dynamic
+	  management of the default interface depending on its link
+	  state.
+
 ##[10.39.100] - 2024-10-02
 
 ### Added
