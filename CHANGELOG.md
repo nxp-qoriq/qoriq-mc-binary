@@ -4,6 +4,13 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.39.101] - 2024-12-05
+
+### Added
+- **DPMAC**
+        - Add the dpmac_get_ievent_reg_base() API which can be used to
+          get the physical address of the MAC IEVENT register.
+
 ##[10.39.100] - 2024-10-02
 
 ### Added
