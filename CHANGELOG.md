@@ -4,6 +4,13 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.39.102] - 2024-12-18
+
+### Added
+- **DPNI**
+	- Extend the dpni_set_rx_tc_policing() API with the
+	  DPNI_POLICER_UNIT_BYTES_L2_WITHOUT_FCS unit option.
+
 ##[10.39.101] - 2024-12-05
 
 ### Added
