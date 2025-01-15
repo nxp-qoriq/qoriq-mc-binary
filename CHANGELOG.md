@@ -4,6 +4,32 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.39.103] - 2025-01-15
+
+### Added
+- **DPMAC,DPNI**
+	- Extend the dpni_get_mac_statistics() and
+	  dpmac_get_statistics() APIs so that they cover the following
+	  new counters:
+		+ DPMAC_CNT_EGR_FRAME_64
+		+ DPMAC_CNT_EGR_FRAME_127
+		+ DPMAC_CNT_EGR_FRAME_255
+		+ DPMAC_CNT_EGR_FRAME_511
+		+ DPMAC_CNT_EGR_FRAME_1023
+		+ DPMAC_CNT_EGR_FRAME_1518
+		+ DPMAC_CNT_EGR_FRAME_1519_MAX
+		+ DPMAC_CNT_ING_ALL_BYTE
+		+ DPMAC_CNT_ING_FCS_ERR
+		+ DPMAC_CNT_ING_VLAN_FRAME
+		+ DPMAC_CNT_ING_UNDERSIZED
+		+ DPMAC_CNT_ING_CONTROL_FRAME
+		+ DPMAC_CNT_ING_FRAME_DISCARD_NOT_TRUNC
+		+ DPMAC_CNT_EGR_ALL_BYTE
+		+ DPMAC_CNT_EGR_FCS_ERR
+		+ DPMAC_CNT_EGR_VLAN_FRAME
+		+ DPMAC_CNT_EGR_ALL_FRAME
+		+ DPMAC_CNT_EGR_CONTROL_FRAME
+
 ##[10.39.102] - 2024-12-18
 
 ### Added
