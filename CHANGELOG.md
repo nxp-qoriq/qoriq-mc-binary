@@ -4,6 +4,11 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.39.105] - 2025-06-30
+- **DPMAC**
+       - Potentially fix the fec_mode = "none" configuration which
+         didn't enable the PCS_mode[HI_BER25] bit.
+
 ##[10.39.104] - 2025-04-08
 - **DPMAC**
 	- Add the dpmac_set_supported_eth_if() API
