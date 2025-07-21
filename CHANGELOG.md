@@ -4,10 +4,26 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.39.106] - 2025-07-21
+- **DPNI**
+       - Add the DPNI_FS_OPT_UPDATE_IF_EXISTS flow steering
+         option which can be used to update the action of an already
+         existing FS entry.
+       - Add support for flow redirect to multiple other interfaces
+         through the new DPNI_FS_OPT_REDIRECT_TO_MULTIPLE_DPNI_TX
+         dpni_add_fs_entry() option.
+- **DPDMUX**
+       - Remove software limit of 64 classification entries. The new
+         limits imposed for the dpdpmux's max_dmat_entries parameter
+         are which are also the platform HW limits.
+               - 4096 entries in case of exact match
+               - 1024 entries in case of TCAM
+       - Add a new dpdmux_create() parameter - custom_key_size
+
 ##[10.39.105] - 2025-06-30
 - **DPMAC**
-       - Potentially fix the fec_mode = "none" configuration which
-         didn't enable the PCS_mode[HI_BER25] bit.
+       - Fix the fec_mode = "none" configuration which didn't enable
+         the PCS_mode[HI_BER25] bit.
 
 ##[10.39.104] - 2025-04-08
 - **DPMAC**
