@@ -4,6 +4,13 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.39.107] - 2025-11-10
+- **DPNI**
+	- Fix how the DPNI_FS_OPT_UPDATE_IF_EXISTS is handled. Before
+	  this release, trying to update a flow steering entry when the
+	  FS table is full would generate an error. This is fixed in
+	  this release.
+
 ##[10.39.106] - 2025-07-21
 - **DPNI**
        - Add the DPNI_FS_OPT_UPDATE_IF_EXISTS flow steering
