@@ -4,6 +4,42 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.39.109] - 2026-01-19
+
+### Added
+- **DPSW**
+	- Extend the dpsw_if_set_tx_shaping() API with burst sizes.
+- **DPNI**
+	- Add the DPNI_QOS_OPT_UPDATE_IF_EXISTS QoS entry option which
+	  can be used to update the action of an already existing QoS
+	  entry.
+	- Add option to configure through the QoS table miss action both
+	  the TC and flow_id.
+	- Extend dpni_set_rx_tc_policing() with a new option to not
+	  reset associated policing counters.
+
+### Fixed
+- **DPNI**
+	- Changing the QoS table miss action had an unwanted side effect
+	  - the flow_id was not longer chosen based on FS/hash but
+	  rather it was hardcoded to 0. Fix that.
+- **DPDMUX**
+	- Fix not receiving any frames on a downlink DPNI connected to a
+	  VEPA DPDMUX after a linkdown/up sequence.
+	- Do not configure the default interface if its link is down or
+	  it is unconnected. This will prevent any frames received on
+	  the uplink to be directed towards the default interface, which
+	  further prevents getting frames and memory stuck. Eventually,
+	  such a context could have led to any new frames to be dropped
+	  on ingress because of out-of-buffer reasons.
+- **DPSW**
+	- Do no lose the Tx shaping configuration upon a linkdown event.
+
+##[10.39.108] - 2025-12-16
+- **DPNI**
+	- Add some info prints around the configuration and reset of all
+	  frame queues. This is with the goal of aiding in debug.
+
 ##[10.39.107] - 2025-11-10
 - **DPNI**
 	- Fix how the DPNI_FS_OPT_UPDATE_IF_EXISTS is handled. Before
