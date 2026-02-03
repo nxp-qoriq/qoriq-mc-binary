@@ -1,0 +1,89 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "creationInfo": {
+    "created": "2026-02-06T11:17:36Z",
+    "creators": [
+      "Organization: NXP"
+    ],
+    "licenseListVersion": "3.26"
+  },
+  "name": "Management Complex-10.40.0",
+  "dataLicense": "CC0-1.0",
+  "hasExtractedLicensingInfos": [
+    {
+      "name": "NXP Binary Firmware License Agreement",
+      "licenseId": "LicenseRef-6621d972-be40-452c-ba47-3bd5ff50fdd4",
+      "extractedText": "NXP Binary Firmware License Agreement\nCopyright © 2017 NXP. All rights reserved.\nSoftware License Agreement (“Agreement”)\nANY USE, REPRODUCTION, OR DISTRIBUTION OF THE ACCOMPANYING BINARY SOFTWARE CONSTITUTES LICENSEE'S ACCEPTANCE OF THE TERMS AND CONDITIONS OF THIS AGREEMENT.\nLicensed Software. “Binary Software” means software in binary form specified in ANNEX A. Subject to the terms and conditions of this Agreement, NXP USA, Inc. (\"Licensor\"), grants to you (“Licensee”) a worldwide, non-exclusive, and royalty-free copyright license to reproduce and distribute the Binary Software in its complete and unmodified binary form as provided by Licensor, for use solely in conjunction with a programmable processing unit supplied directly or indirectly from Licensor.\nRestrictions. Licensee must reproduce the Licensor copyright notice above with each binary copy of the Binary Software or in the accompanying documentation. Licensee must not reverse engineer, decompile, disassemble or modify in any way the Binary Software. Licensee must not use the Binary Software in violation of any applicable law or regulation. This Agreement shall automatically terminate upon Licensee's breach of any term or condition of this Agreement in which case, Licensee shall destroy all copies of the Binary Software. Neither the name of Licensor nor the names of its suppliers may be used to endorse or promote products derived from this Binary Software without specific prior written permission.\nDisclaimer. TO THE MAXIMUM EXTENT PERMITTED BY LAW, LICENSOR EXPRESSLY DISCLAIMS ANY WARRANTY FOR THE BINARY SOFTWARE. THE BINARY SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. WITHOUT LIMITING THE GENERALITY OF THE FOREGOING, LICENSOR DOES NOT WARRANT THAT THE BINARY SOFTWARE IS ERROR-FREE OR WILL OPERATE WITHOUT INTERRUPTION, AND LICENSOR GRANTS NO WARRANTY REGARDING ITS USE OR THE RESULTS THEREFROM, INCLUDING ITS CORRECTNESS, ACCURACY, OR RELIABILITY.\nIntellectual Property Rights. Licensor is not authorized to sell or license any software under the patents of QUALCOMM Incorporated or Snaptrack, Inc. Accordingly, neither the sale, license or provision of the Binary Software nor any provision of this Agreement shall be construed as to grant to Licensee either expressly, by implication or by way of estoppel, any license or other right under any of such patents of QUALCOMM Incorporated or Snaptrack, Inc. Licensee, on behalf of itself and its affiliates, agrees not to contend in any context that, as a result of the provision or use of any Binary Software or any portion thereof, either Licensor or any of its affiliates has any obligation to extend, or Licensee or any other party has obtained any right to, any license, whether express or implied, with respect to any patent of QUALCOMM Incorporated or Snaptrack, Inc. for any purpose.\nLimitation of Liability. IN NO EVENT WILL LICENSOR, OR ANY OF LICENSOR'S LICENSORS HAVE ANY LIABILITY HEREUNDER FOR ANY INDIRECT, SPECIAL, OR\nCONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER FOR BREACH OF CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE, ARISING OUT OF THIS AGREEMENT, INCLUDING DAMAGES FOR LOSS OF PROFITS, OR THE COST OF PROCUREMENT OF SUBSTITUTE GOODS, EVEN IF SUCH PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. LICENSOR’S TOTAL LIABILITY FOR ALL COSTS, DAMAGES, CLAIMS, OR LOSSES WHATSOEVER ARISING OUT\nOF OR IN CONNECTION WITH THIS AGREEMENT OR THE BINARY SOFTWARE SUPPLIED UNDER THIS AGREEMENT IS LIMITED TO THE AGGREGATE AMOUNT PAID BY LICENSEE TO LICENSOR IN CONNECTION WITH THE BINARY SOFTWARE TO WHICH LOSSES OR DAMAGES ARE CLAIMED.\nTrade Compliance. Licensee shall comply with all applicable export and import control laws and regulations including but not limited to the US Export Administration Regulation (including prohibited party lists issued by other federal governments), Catch-all regulations and all national and international embargoes. Licensee further agrees that it will not knowingly transfer, divert, export or re-export, directly or indirectly, any product, software, including software source code, or technology restricted by such regulations or by other applicable national regulations, received from Licensor under this Agreement, or any direct product of such software or technical data to any person, firm, entity, country or destination to which such transfer, diversion, export or re-export is restricted or prohibited, without obtaining prior written authorization from the applicable competent government authorities to the extent required by those laws. Licensee acknowledge that the “restricted encryption software” that is subject to the US Export Administration Regulations (EAR), is not intended for use by a government end user, as defined in part 772 of the EAR. This provision shall survive termination or expiration of this Agreement.\nAssignment. Licensee may not assign this Agreement without the prior written consent of Licensor. Licensor may assign this Agreement without Licensee’s consent.\nGoverning Law. This Agreement will be governed by, construed, and enforced in accordance with the laws of the State of Texas, USA, without regard to conflicts of laws principles, will apply to all matters relating to this Agreement or the Binary Software, and Licensee agrees that any litigation will be subject to the exclusive jurisdiction of the state or federal courts Texas, USA. The United Nations Convention on Contracts for the International Sale of Goods will not apply to this Agreement.\nRestrictions, Warranty Disclaimer, Limitation of Liability, Trade Compliance, Assignment, Governing Law, and Third Party Terms shall survive termination or expiration of this Agreement.\nThird Party Terms. The licensed Binary Software includes the following third party software for which the following terms apply:\nLibfdt - Flat Device Tree manipulation\nCopyright © 2006 David Gibson, IBM Corporation All rights reserved.\nRedistributions must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,\nWHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\nLibElf\nCopyright © 2006,2008-2011 Joseph Koshy All rights reserved.\nRedistributions must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
+    }
+  ],
+  "documentNamespace": "https://nxp.com/spdx/8abacab3-63c8-4e01-9dc8-296d6518eb08",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-package-8abacab3-63c8-4e01-9dc8-296d6518eb08",
+      "name": "Management Complex",
+      "versionInfo": "10.40.0",
+      "licenseConcluded": "(LicenseRef-6621d972-be40-452c-ba47-3bd5ff50fdd4)",
+      "licenseDeclared": "(LicenseRef-6621d972-be40-452c-ba47-3bd5ff50fdd4)",
+      "downloadLocation": "https://github.com/nxp-qoriq/qoriq-mc-binary/tree/mc_release_10.40.0",
+      "originator": "Organization: NXP",
+      "supplier": "NOASSERTION",
+      "externalRefs": [],
+      "filesAnalyzed": false
+    },
+    {
+      "SPDXID": "SPDXRef-package-2ae6fcaf-5eb1-43c3-bc0f-572e050e6571",
+      "name": "dgibson/dtc",
+      "versionInfo": "v1.4.0",
+      "licenseConcluded": "BSD-2-Clause",
+      "licenseDeclared": "NOASSERTION",
+      "licenseComments": "This change was based on the source code which presents the BSD 2-Clause \"Simplified\" license.",
+      "downloadLocation": "https://github.com/dgibson/dtc/tree/v1.4.0/libfdt",
+      "originator": "Organization: dgibson",
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceLocator": "2709a5ac-6226-48d4-8883-4e42c77c3b91",
+          "referenceType": "BlackDuck-ComponentOrigin"
+        },
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:github/dgibson/dtc@v1.4.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false
+    },
+    {
+      "SPDXID": "SPDXRef-package-8c4b35f4-7749-443f-9346-2b1413b69e7a",
+      "name": "ELF Tool Chain",
+      "versionInfo": "0.6.1",
+      "licenseConcluded": "BSD-2-Clause",
+      "licenseDeclared": "BSD-3-Clause",
+      "homepage": "http://elftoolchain.sourceforge.net/",
+      "downloadLocation": "https://sourceforge.net/p/elftoolchain/code/HEAD/tree/tags/elftoolchain-0.6.1/libelf/",
+      "originator": "Organization: ELF Tool Chain",
+      "supplier": "NOASSERTION",
+      "externalRefs": [],
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-package-8abacab3-63c8-4e01-9dc8-296d6518eb08"
+    },
+    {
+      "spdxElementId": "SPDXRef-package-8abacab3-63c8-4e01-9dc8-296d6518eb08",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-package-2ae6fcaf-5eb1-43c3-bc0f-572e050e6571"
+    },
+    {
+      "spdxElementId": "SPDXRef-package-8abacab3-63c8-4e01-9dc8-296d6518eb08",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-package-8c4b35f4-7749-443f-9346-2b1413b69e7a"
+    }
+  ]
+}

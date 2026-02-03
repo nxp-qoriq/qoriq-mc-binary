@@ -4,6 +4,93 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+## [10.40.0]
+
+### Added
+- **DPMAC,DPNI**
+	- Extend the dpni_get_mac_statistics() and
+	  dpmac_get_statistics() APIs so that they cover the following
+	  new counters:
+		+ DPMAC_CNT_EGR_FRAME_64
+		+ DPMAC_CNT_EGR_FRAME_127
+		+ DPMAC_CNT_EGR_FRAME_255
+		+ DPMAC_CNT_EGR_FRAME_511
+		+ DPMAC_CNT_EGR_FRAME_1023
+		+ DPMAC_CNT_EGR_FRAME_1518
+		+ DPMAC_CNT_EGR_FRAME_1519_MAX
+		+ DPMAC_CNT_ING_ALL_BYTE
+		+ DPMAC_CNT_ING_FCS_ERR
+		+ DPMAC_CNT_ING_VLAN_FRAME
+		+ DPMAC_CNT_ING_UNDERSIZED
+		+ DPMAC_CNT_ING_CONTROL_FRAME
+		+ DPMAC_CNT_ING_FRAME_DISCARD_NOT_TRUNC
+		+ DPMAC_CNT_EGR_ALL_BYTE
+		+ DPMAC_CNT_EGR_FCS_ERR
+		+ DPMAC_CNT_EGR_VLAN_FRAME
+		+ DPMAC_CNT_EGR_ALL_FRAME
+		+ DPMAC_CNT_EGR_CONTROL_FRAME
+		+ DPMAC_CNT_ING_PFCn
+		+ DPMAC_CNT_EGR_PFCn
+- **DPNI**
+	- Extend the dpni_set_rx_tc_policing() API with the
+	  DPNI_POLICER_UNIT_BYTES_L2_WITHOUT_FCS unit option.
+	- Add the dpni_get_mac_speed_capability() API
+	- Add support for flow redirect to multiple other interfaces
+	  through the new DPNI_FS_OPT_REDIRECT_TO_MULTIPLE_DPNI_TX
+	  dpni_add_fs_entry() option.
+	- Add the DPNI_FS_OPT_UPDATE_IF_EXISTS flow steering
+	  option which can be used to update the action of an already
+	  existing FS entry.
+	- Add the DPNI_QOS_OPT_UPDATE_IF_EXISTS QoS entry option which
+	  can be used to update the action of an already existing QoS
+	  entry.
+	- Add option to configure through the QoS table miss action both
+	  the TC and flow_id.
+	- Extend dpni_set_rx_tc_policing() with a new option to not
+	  reset associated policing counters.
+
+- **DPMAC**
+	- Add the dpmac_get_ievent_reg_base() API which can be used to
+	  get the physical address of the MAC IEVENT register.
+	- Add the dpmac_set_supported_eth_if() API
+	- Fix the fec_mode = "none" configuration which didn't enable
+	  the PCS_mode[HI_BER25] bit.
+- **DPDMUX**
+	- Remove software limit of 64 classification entries. The new
+	  limits imposed for the dpdpmux's max_dmat_entries parameter
+	  are which are also the platform HW limits.
+		- 4096 entries in case of exact match
+		- 1024 entries in case of TCAM
+	- Add a new dpdmux_create() parameter - custom_key_size
+- **DPSW**
+	- Extend the dpsw_if_set_tx_shaping() API with burst sizes.
+- **DPC**
+	- Add the 'minimal_fifo' configuration param per recycle_port.
+	  This can be used to configure the minimal amount of FIFO on a
+	  recycle port, rendering it unusable.
+
+### Fixed
+- **DPNI**
+	- Fix dpni_get_mac_statistics() when run on a DPNI from a
+	  different DPRC than the DPMAC.
+	- Changing the QoS table miss action had an unwanted side effect
+	  - the flow_id was not longer chosen based on FS/hash but
+	  rather it was hardcoded to 0. Fix that.
+- **DPDMUX**
+	- Fix not receiving any frames on a downlink DPNI connected to a
+	  VEPA DPDMUX after a linkdown/up sequence.
+	- Do not configure the default interface if its link is down or
+	  it is unconnected. This will prevent any frames received on
+	  the uplink to be directed towards the default interface, which
+	  further prevents getting frames and memory stuck. Eventually,
+	  such a context could have led to any new frames to be dropped
+	  on ingress because of out-of-buffer reasons.
+- **DPSW**
+	- Fix losing the per DPSW port Tx shaping configuration after a
+	  linkdown event.
+- **GENERAL**
+	- Fix UART related confusing warning at MC boot.
+
 ##[10.39.0] - 2024-07-30
 
 ### Added
@@ -43,18 +130,18 @@ Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/doc
          similarly to dpmac_get_statistics() can be used to get all MAC
          related counters in a single firmware call.
 - **GENERAL**
-        - Added a hint for the case in which the port FIFO size register
-          was not properly configured due to insufficient FIFO for all
-          physical ports and the two recycle ports configured by default
-          to sustain 50Gbps.
+	- Added a hint for the case in which the port FIFO size register
+	  was not properly configured due to insufficient FIFO for all
+	  physical ports and the two recycle ports configured by default
+	  to sustain 50Gbps.
 ### Fixed
 - **DPNI**
-        - The dpni_set_tx_priorities() command behaves different when
-          the num_tx_tcs value on the DPNI is greater than 8 and the
-          only accepted configuration is:
-                - TCs [0-8) as STRICT priority (implicit)
-                - TCs [8-12) as WEIGHTED_A (must be set in SCH_MODE_0 to SCH_MODE_3)
-                - TCs [12-16) as WEIGHTED_B (must be set in SCH_MODE_4 to SCH_MODE_7)
+	- The dpni_set_tx_priorities() command behaves different when
+	  the num_tx_tcs value on the DPNI is greater than 8 and the
+	  only accepted configuration is:
+		- TCs [0-8) as STRICT priority (implicit)
+		- TCs [8-12) as WEIGHTED_A (must be set in SCH_MODE_0 to SCH_MODE_3)
+		- TCs [12-16) as WEIGHTED_B (must be set in SCH_MODE_4 to SCH_MODE_7)
 
 ##[10.38.1] - 2024-04-19
 
