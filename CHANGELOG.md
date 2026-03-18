@@ -4,6 +4,12 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.39.300] - 2026-03-18
+### Added
+- **DPMAC**
+	- Bring down the DPMACs in TYPE_FIXED when a remote/local fault
+	  was detected on the associated MAC.
+
 ##[10.39.0] - 2024-07-30
 
 ### Added
