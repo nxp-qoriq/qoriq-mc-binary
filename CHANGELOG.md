@@ -4,6 +4,22 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+## [10.40.100]
+
+### Added
+- **DPNI**
+	- Extend the dpni_set_tx_shaping() API so that it can handle
+	  burst sizes on 32 bits. This allows a shaper to be configured
+	  with the maximum burst size allowed by WRIOP.
+### Fixes
+- **DPSW**
+	- Fix shaping on the DPSW interfaces which go virtual objects
+	  (non-DPMAC).
+	- Fix some debug prints.
+- **DPDMUX**
+	- Return an error if a default interface is requested on a
+	  DPDMUX with bridging enabled (EVB).
+
 ## [10.40.0]
 
 ### Added
