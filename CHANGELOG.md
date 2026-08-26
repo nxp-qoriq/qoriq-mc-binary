@@ -4,6 +4,19 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.39.110] - 2026-08-24
+
+### Fixed
+- **DPNI**
+	- The dpni_add_qos_entry() API could have failed to insert a
+	  TCAM rule in some circumstances such as a high level of
+	  background traffic going through the CTLU. The effect is that
+	  a subsequent dpni_remove_qos_entry() on the same entry will
+	  return an error saying that the TCAM entry is not matching the
+	  one requested to be removed. Fix this at the add stage by
+	  querying the TCAM entry and re-issuing the add command in case
+	  it's different.
+
 ##[10.39.109] - 2026-01-19
 
 ### Added
