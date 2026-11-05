@@ -4,10 +4,17 @@
 ### Documentation
 Chapter **8.3.4 DPAA2 User Manual** in [LSDK User Guide](https://www.nxp.com/docs/en/user-guide/LSDKUG_Rev21.08.pdf "LSDK User Guide")
 
+##[10.39.112] - 2026-11-05
+
+### Fixed
+- **DPMAC**
+	- Keep the MACSec block in bypass mode as long as there are no
+	  SecYs attached to the DPMAC object.
+
 ##[10.39.111] - 2026-09-18
 
 ### Fixed
-- **DPPMAC**
+- **DPMAC**
 	- Add the dpmac_set_fec_state() API which can be used to
 	  configure the necessary MAC registers depending on the FEC
 	  state.
